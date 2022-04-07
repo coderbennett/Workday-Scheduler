@@ -10,9 +10,19 @@ var currentDay = moment().format('dddd, MMMM Do');
 var containerEl = $(".container");
 var timeblockElArray = [];
 var tempRowEl;
-currentDayEl.html(currentDay);
+var descriptions;
+
+currentDayEl.text(currentDay);
+
+if(localStorage.getItem("descriptions") === null) {
+    localStorage.setItem("descriptions", JSON.stringify(["", "", "", "", "", "", "", "", ""]));
+} else {
+    descriptions = JSON.parse(localStorage.getItem("descriptions"));
+}
 
 createRowElements();
+
+$(".saveBtn").on("click", saveDescription);
 
 function createRowElements() {
 
@@ -35,6 +45,7 @@ function createRowElements() {
             tempRowEl.text(hour + " PM");
         }
         tempRowEl = $("<textarea>");
+        tempRowEl.text(descriptions[i]);
         tempRowEl.attr('class', 'col-10 description');
         if (moment().hour() === militaryHour) {
             tempRowEl.addClass('present');
@@ -46,7 +57,7 @@ function createRowElements() {
         timeblockElArray[i].append(tempRowEl);
         tempRowEl = $("<div>");
         tempRowEl.addClass('col-1 saveBtn');
-        tempRowEl.attr('data-index', i);
+        tempRowEl.attr('index', i);
         tempRowEl.html('💾')
         timeblockElArray[i].append(tempRowEl);
         hour++;
@@ -59,4 +70,10 @@ function createRowElements() {
         }
     }
 
+}
+
+function saveDescription(event){
+    var el = event.target;
+    descriptions[$(el).attr("index")] = $(el).prev().val();
+    localStorage.setItem("descriptions", JSON.stringify(descriptions));
 }
