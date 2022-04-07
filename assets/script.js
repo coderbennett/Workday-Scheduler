@@ -18,7 +18,10 @@ setHours();
 function createRowElements() {
 
     var hour = 9;
+    var militaryHour = 9;
     var morning = true;
+
+    console.log(moment().hour());
 
     for (var i = 0; i < 10; i++) {
         timeblockElArray[i] = $("<div>");
@@ -34,11 +37,20 @@ function createRowElements() {
         }
         tempRowEl = $("<textarea>");
         tempRowEl.attr('class', 'col-10 description');
+        if (moment().hour() === militaryHour) {
+            tempRowEl.addClass('present');
+        } else if (moment().hour() < militaryHour) {
+            tempRowEl.addClass('future');
+        } else {
+            tempRowEl.addClass('past');
+        }
         timeblockElArray[i].append(tempRowEl);
         tempRowEl = $("<div>");
         tempRowEl.attr('class', 'col-1 saveBtn');
+        tempRowEl.html('<img src="./assets/saveIcon.png"/>')
         timeblockElArray[i].append(tempRowEl);
         hour++;
+        militaryHour++;
         if (hour === 12) {
             morning = false;
         }
@@ -47,13 +59,4 @@ function createRowElements() {
         }
     }
 
-}
-
-function setHours() {
-    for (var i = 0; i < timeblockElArray.length; i++){
-        var hour = 9;
-        if(morning) {
-            $(containerEl).children("div").children("hour").text(hour + "AM");
-        }
-    }
 }
