@@ -13,8 +13,12 @@ var tempRowEl;
 currentDayEl.html(currentDay);
 
 createRowElements();
+setHours();
 
 function createRowElements() {
+
+    var hour = 9;
+    var morning = true;
 
     for (var i = 0; i < 10; i++) {
         timeblockElArray[i] = $("<div>");
@@ -23,12 +27,33 @@ function createRowElements() {
         tempRowEl = $("<div>");
         tempRowEl.attr('class', 'col-1 hour');
         timeblockElArray[i].append(tempRowEl);
+        if (morning) {
+            tempRowEl.text(hour + " AM");
+        } else {
+            tempRowEl.text(hour + " PM");
+        }
         tempRowEl = $("<textarea>");
         tempRowEl.attr('class', 'col-10 description');
         timeblockElArray[i].append(tempRowEl);
         tempRowEl = $("<div>");
         tempRowEl.attr('class', 'col-1 saveBtn');
         timeblockElArray[i].append(tempRowEl);
+        hour++;
+        if (hour === 12) {
+            morning = false;
+        }
+        if (hour === 13) {
+            hour = 1;
+        }
     }
 
+}
+
+function setHours() {
+    for (var i = 0; i < timeblockElArray.length; i++){
+        var hour = 9;
+        if(morning) {
+            $(containerEl).children("div").children("hour").text(hour + "AM");
+        }
+    }
 }
