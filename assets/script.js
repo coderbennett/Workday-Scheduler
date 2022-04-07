@@ -13,7 +13,6 @@ var tempRowEl;
 currentDayEl.html(currentDay);
 
 createRowElements();
-setHours();
 
 function createRowElements() {
 
@@ -46,8 +45,9 @@ function createRowElements() {
         }
         timeblockElArray[i].append(tempRowEl);
         tempRowEl = $("<div>");
-        tempRowEl.attr('class', 'col-1 saveBtn');
-        tempRowEl.html('<img src="./assets/saveIcon.png"/>')
+        tempRowEl.addClass('col-1 saveBtn');
+        tempRowEl.attr('data-index', i);
+        tempRowEl.html('💾')
         timeblockElArray[i].append(tempRowEl);
         hour++;
         militaryHour++;
