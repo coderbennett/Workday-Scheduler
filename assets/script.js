@@ -17,9 +17,9 @@ currentDayEl.text(currentDay);
 //check the local storage for the description array, if it isnt there create one, and if it is there, set the descriptions variable to the array
 if(localStorage.getItem("descriptions") === null) {
     localStorage.setItem("descriptions", JSON.stringify(["", "", "", "", "", "", "", "", ""]));
-} else {
-    descriptions = JSON.parse(localStorage.getItem("descriptions"));
-}
+} 
+descriptions = JSON.parse(localStorage.getItem("descriptions"));
+
 
 //create the row elements with our create row elements function
 createRowElements();
