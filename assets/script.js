@@ -38,12 +38,14 @@ function createRowElements() {
     //this for loop creates all the timeblocks with all their respective needs
     for (var i = 0; i < 10; i++) {
 
-        //this first section creates the timeblock row element and appends it as a child to the container element
+        //this first section creates the timeblock row element 
+        //appends it as a child to the container element
         timeblockElArray[i] = $("<div>");
         timeblockElArray[i].attr('class', 'row time-block');
         containerEl.append(timeblockElArray[i]);
 
-        //now we are creating the hour element for the timeblock at the current index, setting appropriate classes, and applying the proper text for the hour
+        //now we are creating the hour element for the timeblock at the current index
+        //setting appropriate classes, and applying the proper text for the hour
         tempRowEl = $("<div>");
         tempRowEl.attr('class', 'col-1 hour');
         timeblockElArray[i].append(tempRowEl);
@@ -53,7 +55,8 @@ function createRowElements() {
             tempRowEl.text(hour + " PM");
         }
 
-        //in this section we are creating the description section for the timeblock, appending the correct description from local storage, setting proper classes, using moment.js to check the current hour to set the proper class styling for coloring
+        //in this section we are creating the description section for the timeblock, appending the correct description from local storage
+        //setting proper classes, using moment.js to check the current hour to set the proper class styling for coloring
         tempRowEl = $("<textarea>");
         tempRowEl.text(descriptions[i]);
         tempRowEl.attr('class', 'col-10 description');
@@ -67,14 +70,16 @@ function createRowElements() {
         }
         timeblockElArray[i].append(tempRowEl);
 
-        //for the final timeblock row element, we are setting up the save button with the proper classes, adding a floppydisk to the content, and also adding a data attribute to reference for saving our descriptions to local storage later
+        //for the final timeblock row element, we are setting up the save button with the proper classes, adding a floppydisk to the content
+        //also adding a data attribute to reference for saving our descriptions to local storage later
         tempRowEl = $("<div>");
         tempRowEl.addClass('col-1 saveBtn');
         tempRowEl.attr('index', i);
         tempRowEl.html('💾')
         timeblockElArray[i].append(tempRowEl);
 
-        //here we are incrementing the hour for the upcoming timeblock's elements. we also have some if statements to catch the cases when the AM/PM change or when the 12PM to 1PM change needs to happen
+        //here we are incrementing the hour for the upcoming timeblock's elements. 
+        //we also have some if statements to catch the cases when the AM/PM change or when the 12PM to 1PM change needs to happen
         hour++;
         militaryHour++;
         if (hour === 12) {
@@ -92,7 +97,8 @@ function saveDescription(event){
     //set this variable as a pointer to the button that was clicked
     var el = event.target;
 
-    //check the data attribute index for this button and set the previous description element's value to the description array at that index
+    //check the data attribute index for this button 
+    //set the previous description element's value to the description array at that index
     descriptions[$(el).attr("index")] = $(el).prev().val();
 
     //update localstorage with the newly updated descriptions array
